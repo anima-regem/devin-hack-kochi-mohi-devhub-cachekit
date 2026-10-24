@@ -248,3 +248,63 @@ def verify_bundle(
         stable_source=final.sha256 == current.sha256,
     )
     return result, after, after_report
+
+
+def default_allowed_files(repo: Path) -> list[str]:
+    """Private planning is optional in a public checkout; public change records are not."""
+    paths = ["demo_app/helpdesk/prompt.py", "CHANGELOG.md", "AI_USAGE.md"]
+    if (repo / "DECISIONS.md").is_file():
+        paths.append("DECISIONS.md")
+    return paths
+
+
+def approve_current(
+    *,
+    repo: Path,
+    task_path: Path,
+    report_path: Path,
+    input_path: Path,
+    verification_path: Path,
+    tokenizer,
+    review_paths: list[Path],
+    reviewer: str,
+    expected_diff_sha256: str,
+    timestamp: str,
+):
+    """Shared CLI/API approval revalidation; a stored passed flag is insufficient."""
+    from cachekit.fix.approve import approve
+    from cachekit.fix.models import VerifyResult
+
+    original = read_model(verification_path, VerifyResult)
+    saved, _ = load_bundle(task_path)
+    source = snapshot(repo, saved.excluded_artifacts)
+    if (
+        original.after_source_sha256 != source.sha256
+        or original.task_sha256 != digest(saved.task)
+        or original.tests.command != saved.task.test_command
+        or original.tests.output_sha256 is None
+        or original.quality_result_path is None
+    ):
+        raise ValueError("Verification is stale or incomplete; rerun verify")
+    quality_path = Path(original.quality_result_path)
+    fresh, _, _ = verify_bundle(
+        repo=repo,
+        task_path=task_path,
+        report_path=report_path,
+        input_path=input_path,
+        tokenizer=tokenizer,
+        quality_path=quality_path,
+        review_paths=review_paths,
+        existing_tests=original.tests,
+    )
+    if fresh != original:
+        raise ValueError("Current evidence differs from verification; rerun verify")
+    return approve(
+        fresh,
+        current_source_sha256=source.sha256,
+        expected_diff_sha256=expected_diff_sha256,
+        verify_sha256=file_sha(verification_path),
+        quality_result_sha256=file_sha(quality_path),
+        reviewer=reviewer,
+        timestamp=timestamp,
+    )

@@ -11,15 +11,15 @@ export default function Method() {
       </p>
       <h2>Find the changing content</h2>
       <p>
-        The planned engine groups rendered requests by call site, aligns their
+        The deterministic engine groups rendered requests by call site, aligns their
         content, and identifies changing spans before stable instructions. Its
         analysis runs locally with a fixed tokenizer and configuration.
       </p>
       <h2>Verify a proposed fix</h2>
       <p>
-        Findings become a redacted task for a coding agent. The verifier will
+        Findings become a redacted task for a coding agent. The verifier can
         render the recorded inputs again, check that content is preserved, and
-        run the project tests. A human approves the exact diff.
+        run the project tests. A required behavioral guard checks golden outputs; missing evidence blocks approval. A human approves the exact diff.
       </p>
       <h2>Measure the difference</h2>
       <p>
@@ -29,7 +29,7 @@ export default function Method() {
       </p>
       <h2>Current limitations</h2>
       <ul>
-        <li>The foundation is implemented; analysis and fix workflows are still being built.</li>
+        <li>The local analysis and fix-review workflow is implemented. An actual application fix, live golden inference and a BEFORE/AFTER performance replay are still pending.</li>
         <li>GPU smoke testing confirms prefix reuse, but establishes no speedup or savings.</li>
         <li>Moving instructions can change model behavior even when every word is preserved.</li>
         <li>Concurrent requests, eviction, and routing can affect real cache reuse.</li>

@@ -178,6 +178,7 @@ def analyze(
     projected: list[TokenizedRequest] = []
     findings: list[Finding] = []
     heatmaps: dict[str, list[float]] = {}
+    reference_lengths: dict[str, int] = {}
     previews: dict[str, str] = {}
     grouping: dict[str, str] = {}
     for route, items in groups.items():
@@ -309,6 +310,7 @@ def analyze(
         for record in items:
             projected.append(tokenize(rewrite(record, templates, sort_tools=sort_tools), tokenizer))
         reference = tokens[full_template.baseline_id]
+        reference_lengths[route] = len(reference.token_ids)
         tree = TokenRadix()
         for request in tokens.values():
             tree.insert(request.token_ids)
@@ -319,7 +321,21 @@ def analyze(
         heatmaps[route] = downsample(stability, config.analysis.heatmap_points)
         preview = full_template.text
         for span in reversed(full_template.spans):
-            preview = preview[: span.start] + "⟦variable⟧" + preview[span.end :]
+            labels = set()
+            for source_template in templates:
+                placement = places[reference.id].get(source_template.key)
+                if placement is None:
+                    continue
+                for hole in source_template.spans:
+                    bounds = hole.ranges.get(reference.id)
+                    if (
+                        bounds
+                        and placement + bounds[0] < span.end
+                        and placement + bounds[1] > span.start
+                    ):
+                        labels.add(hole.label)
+            label = " + ".join(sorted(labels)) or "variable"
+            preview = preview[: span.start] + f"⟦{label}⟧" + preview[span.end :]
         previews[route] = redact(preview, config.analysis.redaction_patterns)
     before = simulate(list(actual_tokens.values()), config.vllm)
     after = simulate(projected, config.vllm)
@@ -327,6 +343,7 @@ def analyze(
         "tokenizer": tokenizer.identity,
         "route_grouping": grouping,
         "sample_limit": config.analysis.sample_limit,
+        "heatmap_reference_tokens": reference_lengths,
         "limitations": [
             "Sequential prompt-only simulation; decode blocks and concurrency are not modeled.",
             "Achievable is a simulated reordering, not a fix or evidence of behavioral safety.",

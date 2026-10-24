@@ -2,7 +2,7 @@
 
 **Find what breaks prompt caching in your LLM app, fix it with an agent, and prove the speedup on vLLM.**
 
-> Status: in development at Devin Hacks Kochi (Oct 24–25, 2026). Results tables are filled in only from measured runs in `eval_results/`.
+> Status: in development at Devin Hacks Kochi (Oct 24–25, 2026). Published figures come from saved runs in `eval_results/`, labeled SIMULATED or MEASURED.
 
 Participant: Mohith ([mohi-devhub](https://github.com/mohi-devhub)), solo builder.
 Repository created from the organizer-provided
@@ -43,14 +43,17 @@ Run scripts are provided for a checkout with Python, uv and Node.js available:
 ```sh
 bash scripts/setup.sh       # install dependencies and download only the tokenizer
 bash scripts/demo.sh        # fresh synthetic traffic and offline analysis
-bash scripts/run-api.sh     # local API foundation, currently /health
-bash scripts/run-web.sh     # web scaffold, in a separate terminal
+bash scripts/run-api.sh     # local analysis, task and verification API
+bash scripts/run-web.sh     # report workspace, in a separate terminal
 bash scripts/check.sh       # Python and web validation
 ```
 
 The setup script uses the network for installation and tokenizer preparation.
-The demo runs CPU analysis without inference or an external agent. UI screenshots
-remain [pending](screenshots/README.md) until the actual report pages are built.
+The demo runs CPU analysis without inference or an external agent. Open
+`http://localhost:3000` for the workspace. A committed synthetic report works
+without the API or GPU; analysis and task generation need the local API. Actual
+UI screenshots remain [pending](screenshots/README.md): this coding environment
+cannot bind server ports.
 Detailed equivalents follow; no credentials are needed for the local synthetic demo.
 
 Install the Python workspace and its development dependencies from the repository root:
@@ -141,10 +144,10 @@ and exact-diff approval. Deployment fields are defined in
 [`DeploymentIdentity`](engine/cachekit/fix/models.py). The verifier never starts inference. No actual
 golden inference or approved application fix has been completed yet.
 
-Start the API foundation and web scaffold in separate terminals:
+Start the local API and web workspace in separate terminals:
 
 ```sh
-uv run --no-sync uvicorn cachekit.api:app --reload
+uv run --no-sync uvicorn cachekit.api:app --host 127.0.0.1 --port 8000
 ```
 
 ```sh
@@ -153,9 +156,36 @@ npm install
 npm run dev
 ```
 
-The API currently exposes `/health`; the web app shows an empty workspace and the
-method and limitations page. CLI analysis and fix verification work locally.
-API/UI integration and measured benchmarks remain for the next phases.
+Open `http://localhost:3000`. The workspace can select a local converted sample
+or upload native `RequestRecord` JSONL, open reports and findings, inspect a
+route's stability heatmap, generate a helpdesk fix task, and verify or approve
+an exact diff. Run the traffic command above to make `data/demo/` available for
+fresh analysis and helpdesk task generation. Other applications still require
+a replay adapter; uploading arbitrary logs does not provide one.
+
+Uploads are limited to 10 MiB and stored under ignored `data/api/`; reports,
+candidate artifacts, verification provenance and approvals created by the API
+stay under ignored `eval_results/local/`. API requests accept artifact identities,
+not caller-supplied file paths. Bind this unauthenticated local operator API to
+loopback. The benchmark page is a read-only evidence view; there is no public
+GPU invocation endpoint or Devin-launch control.
+
+The `/bench` page reads the measured serving smoke counters and explicitly marks
+the BEFORE/AFTER performance benchmark as pending. The `/fix` page shows the
+historical, unapproved Phase 3 task; generate a new task against the current
+source before using it. Attach a saved quality run and any explicit output
+review artifacts by SHA-256 under the fix page's evidence section. The API looks
+for these typed files in `eval_results/quality_guard/`; verification never starts
+inference. Approval recomputes the current gates instead of trusting a saved pass.
+
+When the API is unavailable, the reviewed synthetic report, heatmap, historical
+fix status and smoke counters load from `web/public/demo/workspace.json`. Write
+a new synthetic analysis to `eval_results/demo_before_report.json`, then run
+`uv run --no-sync python scripts/export_demo.py` to refresh this public snapshot.
+The exporter accepts only the named synthetic helpdesk run. Never copy uploaded
+or dataset-derived reports into the public demo. After installation, this mode
+needs only the local web server; it makes no external font or analytics calls.
+See [web/README.md](web/README.md) for routes and API configuration.
 
 Check the engine and demo:
 
@@ -168,8 +198,8 @@ uv run --no-sync ruff format --check engine demo_app bench
 In `web/`, run `npm run typecheck`, `npm run lint`, and `npm run build`.
 
 ## Limitations
-- The offline analysis pipeline, local fix workflow, quality collector/evaluator
-  and approval gates are implemented. A real fixer PR, actual quality inference,
+- The offline analysis pipeline, local API/report UI, fix workflow, quality
+  collector/evaluator and approval gates are implemented. A real fixer PR, actual quality inference,
   and benchmark replay remain pending; no application fix is approved.
 - Replay currently supports the documented helpdesk input adapter. Other apps
   need their own adapter or fresh capture; generic source tracing is stretch work.

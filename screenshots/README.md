@@ -1,7 +1,8 @@
 # Demo screenshots
 
-Actual UI screenshots are pending. The current web app is a scaffold, and the
-report/fix/benchmark interface is still being implemented. No mock screenshot or
+Actual UI screenshots are pending. The report, heatmap, fix/quality and
+benchmark pages are implemented and build successfully. Local server binds are
+denied in the coding sandbox, so visual browser validation remains unverified. No mock screenshot or
 generated image should be presented as a working application capture.
 
 Before submission, capture the implemented report summary, findings/heatmap,

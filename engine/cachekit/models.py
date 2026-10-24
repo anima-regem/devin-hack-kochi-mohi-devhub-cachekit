@@ -25,6 +25,7 @@ class AnalysisRun(BoundaryModel):
     timestamp: str
     git_sha: str | None
     git_sha_note: str | None
+    git_dirty: bool | None = None
     dataset: list[str]
     seed: dict[str, list[int]]
     n_requests: int = Field(ge=0)

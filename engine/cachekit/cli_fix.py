@@ -10,19 +10,23 @@ from typing import Annotated
 import typer
 from pydantic import SecretStr
 
-from cachekit.fix.approve import approve as make_approval
 from cachekit.fix.models import (
     FixResult,
     GenerationConfig,
     QualityReview,
     QualityRun,
     VerificationRun,
-    VerifyResult,
 )
 from cachekit.fix.task import digest, task_markdown
 from cachekit.ingest.config import load_config
 from cachekit.ingest.fix import file_sha, read_model, read_recorded, snapshot, write_model
-from cachekit.ingest.fix_workflow import load_bundle, prepare_task, verify_bundle
+from cachekit.ingest.fix_workflow import (
+    approve_current,
+    default_allowed_files,
+    load_bundle,
+    prepare_task,
+    verify_bundle,
+)
 from cachekit.ingest.jsonl import write_requests
 from cachekit.ingest.tokenizer import load_tokenizer
 
@@ -101,8 +105,7 @@ def register(app: typer.Typer) -> None:
                 bundle=out.parent,
                 config=config,
                 tokenizer=loaded,
-                allowed_files=allow_file
-                or ["demo_app/helpdesk/prompt.py", "DECISIONS.md", "CHANGELOG.md", "AI_USAGE.md"],
+                allowed_files=allow_file or default_allowed_files(repo),
                 test_command=shlex.split(test_command),
                 finding_ids=finding,
                 generation=GenerationConfig(max_tokens=quality_max_tokens),
@@ -284,38 +287,17 @@ def register(app: typer.Typer) -> None:
     ) -> None:
         """Human approval of the exact verified diff; revalidate current quality evidence."""
         with checked():
-            original = read_model(verify, VerifyResult)
             saved, _ = load_bundle(task)
-            source = snapshot(repo, saved.excluded_artifacts)
-            if (
-                original.after_source_sha256 != source.sha256
-                or original.task_sha256 != digest(saved.task)
-                or original.tests.command != saved.task.test_command
-                or original.tests.output_sha256 is None
-                or original.quality_result_path is None
-            ):
-                raise ValueError("Verification is stale or incomplete; rerun verify")
-            loaded = _tokenizer(tokenizer, saved.config)
-            quality_path = Path(original.quality_result_path)
-            fresh, _, _ = verify_bundle(
+            approval = approve_current(
                 repo=repo,
                 task_path=task,
                 report_path=baseline,
                 input_path=inputs,
-                tokenizer=loaded,
-                quality_path=quality_path,
+                verification_path=verify,
+                tokenizer=_tokenizer(tokenizer, saved.config),
                 review_paths=quality_review or [],
-                existing_tests=original.tests,
-            )
-            if fresh != original:
-                raise ValueError("Current evidence differs from verify.json; rerun verify")
-            approval = make_approval(
-                fresh,
-                current_source_sha256=source.sha256,
-                expected_diff_sha256=diff_sha256,
-                verify_sha256=file_sha(verify),
-                quality_result_sha256=file_sha(quality_path),
                 reviewer=reviewer,
+                expected_diff_sha256=diff_sha256,
                 timestamp=datetime.now(UTC).isoformat(),
             )
             if out.exists():

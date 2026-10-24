@@ -6,6 +6,7 @@
 .cache/
 data/
 node_modules/
+/web/node_modules
 .next/
 __pycache__/
 .pytest_cache/
@@ -28,6 +29,7 @@ dist/
 # Dataset-derived template previews stay local, alongside their provenance.
 /eval_results/swe_sample_report*.json
 /eval_results/glaive_sample_report*.json
+/eval_results/local/
 
 # Additional protections inherited from the organizer template.
 *.pem

@@ -4,6 +4,32 @@ Record each meaningful project change during the event, newest first. Update thi
 
 ## Event build log
 
+### 2026-10-24T22:32:02+05:30 — feat: connect local analysis and verification to the report workspace
+
+- Changed: Added bounded local API ingestion, saved report identities/provenance,
+  redacted task creation, source freshness, offline verification and exact-diff
+  approval. Connected Analyze, Report, Heatmap, Fix and Bench UI routes; exported
+  only reviewed synthetic evidence for API-free demo mode. Updated README,
+  submission notes, web instructions and screenshot status.
+- Why: Make the existing deterministic engine and fail-closed quality workflow
+  reviewable through one local workspace, with explicit SIMULATED/MEASURED labels.
+- Affected: `engine/cachekit/api*`, workspace persistence, CLI approval helper,
+  report heatmap metadata, `web/src/`, public synthetic snapshot and exporter.
+  Private uploads/results remain ignored; optional private planning is no longer
+  required to generate a fix task from a public checkout.
+- Validation: 108 Python tests passed, including 10 API/evidence cases; Ruff passed;
+  web typecheck, ESLint and production build passed. Regenerated the actual local
+  synthetic report and checked exported values against saved evidence. UI source
+  detector warning corrected; diff whitespace and exporter syntax checked.
+- Limitations: Browser screenshots/visual validation are unverified because both
+  API and Next server binds are denied (EPERM) in this sandbox. No actual fixer
+  PR, golden inference, BEFORE/AFTER benchmark, cost or speedup is claimed. The
+  historical fix task is stale and unapproved. Publication is recorded separately
+  after a successful commit/push; no shared history is rewritten. Staging here
+  failed because .git/index.lock creation is denied. A reviewed local incremental
+  publisher is prepared for normal Terminal execution.
+
+
 ### 2026-10-24T22:11:13+05:30 — chore: add run scripts and reviewed submission evidence
 
 - Changed: Publish this logical source checkpoint on top of the organizer template.

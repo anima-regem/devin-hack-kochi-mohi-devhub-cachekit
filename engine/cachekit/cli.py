@@ -122,6 +122,16 @@ def analyze_command(
                 "timestamp": datetime.now(UTC).isoformat(),
                 "git_sha": git.stdout.strip() if git.returncode == 0 else None,
                 "git_sha_note": None if git.returncode == 0 else "No available repository commit",
+                "git_dirty": bool(
+                    subprocess.run(
+                        ["git", "status", "--porcelain"],
+                        capture_output=True,
+                        text=True,
+                        check=False,
+                    ).stdout.strip()
+                )
+                if git.returncode == 0
+                else None,
                 "dataset": sorted({str(r.meta.get("source", "native-jsonl")) for r in requests}),
                 "seed": {
                     key: sorted({int(r.meta[key]) for r in requests if key in r.meta})

@@ -10,7 +10,11 @@ from cachekit.serialization import canonical_json
 
 
 def read_requests(path: Path) -> tuple[list[RequestRecord], str]:
-    raw = path.read_bytes()
+    return parse_requests(path.read_bytes())
+
+
+def parse_requests(raw: bytes) -> tuple[list[RequestRecord], str]:
+    """Validate uploaded bytes locally using the same contract as file ingestion."""
     records: list[RequestRecord] = []
     seen: set[str] = set()
     for number, line in enumerate(raw.splitlines(), start=1):
