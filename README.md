@@ -32,6 +32,10 @@ uv run --no-sync cachekit analyze data/demo/requests_before.jsonl \
 
 - Typed fix tasks and pure content/quality/approval gates.
 
+- Local fixer handoff, scoped subprocess replay, repository tests, saved-output
+  quality evaluation and explicit approval CLI. Missing actual quality evidence
+  blocks approval. The explicit synthetic inference collector is in bench/quality.py.
+
 ## Limitations
 
 Cache rates are SIMULATED. No real fixer PR, passing live golden evidence or

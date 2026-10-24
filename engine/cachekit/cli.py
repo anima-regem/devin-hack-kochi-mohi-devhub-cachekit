@@ -11,6 +11,7 @@ from typing import Annotated
 import typer
 
 from cachekit import __version__
+from cachekit.cli_fix import register as register_fix_commands
 from cachekit.ingest.config import load_config
 from cachekit.ingest.jsonl import read_requests, write_requests
 from cachekit.ingest.tokenizer import load_tokenizer
@@ -159,6 +160,7 @@ def analyze_command(
         raise typer.Exit(1) from None
 
 
+register_fix_commands(app)
 
 
 def main() -> None:
