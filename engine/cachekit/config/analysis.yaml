@@ -1,0 +1,16 @@
+source: engine/cachekit/analyze/, engine/tests/test_detection.py, README.md#limitations
+verified_on: "2026-10-24"
+sample_limit: 32
+route_prefix_chars: 160
+high_stable_tokens: 1024
+medium_stable_tokens: 256
+high_affected_fraction: 0.3
+large_hole_chars: 200
+min_anchor_chars: 24
+min_stable_tokens: 16
+heatmap_points: 2000
+redaction_patterns:
+  - '(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b'
+  - '(?i)\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b'
+  - '(?<!\w)\+?\d[\d ()-]{7,}\d(?!\w)'
+  - '(?im)^(?:customer|user|name|email|account):[^\n]*'

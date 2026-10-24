@@ -1,0 +1,46 @@
+# Values measured by the saved smoke test are defaults for that deployment only.
+vllm:
+  model:
+    value: Qwen/Qwen3-4B-Instruct-2507
+    source: eval_results/modal_smoke.json
+    verified_on: "2026-10-22"
+  revision:
+    value: cdbee75f17c01a7cc42f958dc650907174af0554
+    source: eval_results/modal_smoke.json
+    verified_on: "2026-10-22"
+  version:
+    value: "0.31.0"
+    source: eval_results/modal_smoke.json
+    verified_on: "2026-10-22"
+  max_model_len:
+    value: 16384
+    source: eval_results/modal_smoke.json
+    verified_on: "2026-10-22"
+  block_size:
+    value: 16
+    source: eval_results/modal_smoke.json
+    verified_on: "2026-10-22"
+  capacity_blocks:
+    value: 5180
+    source: eval_results/modal_smoke.json
+    verified_on: "2026-10-22"
+  reserved_blocks:
+    value: 1
+    source: https://github.com/vllm-project/vllm/blob/v0.31.0/vllm/v1/core/block_pool.py
+    verified_on: "2026-10-24"
+  recompute_last_token:
+    value: true
+    source: https://github.com/vllm-project/vllm/blob/v0.31.0/vllm/v1/core/kv_cache_manager.py
+    verified_on: "2026-10-24"
+  counter_unit:
+    value: tokens
+    source: eval_results/modal_smoke.json
+    verified_on: "2026-10-22"
+  full_blocks_only:
+    value: true
+    source: https://docs.vllm.ai/en/latest/design/prefix_caching.html
+    verified_on: "2026-10-22"
+  concurrency_model:
+    value: sequential
+    source: README.md#limitations
+    verified_on: "2026-10-24"

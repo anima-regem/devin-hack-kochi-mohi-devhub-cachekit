@@ -19,6 +19,17 @@ uv run --no-sync python -m demo_app.traffic --out data/demo
 uv run --no-sync pytest
 ```
 
+- Offline ingestion, full-template tokenization, breaker detection, vLLM
+  simulation and report JSON. Prefetch the pinned tokenizer during setup;
+  analysis itself never downloads files or calls inference.
+
+```sh
+hf download Qwen/Qwen3-4B-Instruct-2507 tokenizer.json tokenizer_config.json config.json \
+  --revision cdbee75f17c01a7cc42f958dc650907174af0554 --local-dir data/tokenizer
+uv run --no-sync cachekit analyze data/demo/requests_before.jsonl \
+  --tokenizer data/tokenizer --out eval_results/report.json
+```
+
 ## Limitations
 
 Cache rates are SIMULATED. No real fixer PR, passing live golden evidence or
