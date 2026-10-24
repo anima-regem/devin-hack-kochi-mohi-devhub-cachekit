@@ -30,6 +30,8 @@ uv run --no-sync cachekit analyze data/demo/requests_before.jsonl \
   --tokenizer data/tokenizer --out eval_results/report.json
 ```
 
+- Typed fix tasks and pure content/quality/approval gates.
+
 ## Limitations
 
 Cache rates are SIMULATED. No real fixer PR, passing live golden evidence or
