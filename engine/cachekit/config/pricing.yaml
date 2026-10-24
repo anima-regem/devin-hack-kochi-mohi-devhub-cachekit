@@ -1,0 +1,6 @@
+# Fill this from a verified provider price before reporting monetary savings.
+vllm:
+  gpu_hourly_usd:
+    value: null
+    source: https://modal.com/pricing
+    verified_on: null

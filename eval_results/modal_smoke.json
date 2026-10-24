@@ -1,0 +1,196 @@
+{
+  "experiment": "modal_smoke",
+  "started_at": "2026-10-22T17:26:36+00:00",
+  "finished_at": "2026-10-22T17:31:16+00:00",
+  "git_sha": null,
+  "git_sha_note": "No git repository exists in the workspace yet.",
+  "model": "Qwen/Qwen3-4B-Instruct-2507",
+  "model_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "tokenizer_revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "gpu_type_requested": "L4",
+  "dtype": "model default (bf16, unquantized)",
+  "max_model_len": 16384,
+  "block_size_requested": 16,
+  "prefix_caching": true,
+  "vllm_version_pinned": "0.31.0",
+  "modal_client_version": "1.6.2",
+  "script": ".tools/modal_smoke.py",
+  "script_sha256": "5cc96d538e7455d1245b8de3af0fd6bb5b0883fa050a6632a9414d9e38d13b8b",
+  "note": "Smoke test only: checks that prefix-cache counters move. Not a performance measurement.",
+  "status": "ran",
+  "error": null,
+  "gpu": "NVIDIA L4, 610.57.04, 23034 MiB",
+  "modal_region": "ca",
+  "modal_cloud": "CLOUD_PROVIDER_GCP",
+  "vllm_version": "0.31.0",
+  "torch_version": "2.13.0+cu130",
+  "flags_verified": {
+    "--revision": true,
+    "--tokenizer-revision": true,
+    "--max-model-len": true,
+    "--enable-prefix-caching": true,
+    "--block-size": true,
+    "--gpu-memory-utilization": true,
+    "--port": true
+  },
+  "serve_cmd": [
+    "vllm",
+    "serve",
+    "Qwen/Qwen3-4B-Instruct-2507",
+    "--revision",
+    "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "--tokenizer-revision",
+    "cdbee75f17c01a7cc42f958dc650907174af0554",
+    "--max-model-len",
+    "16384",
+    "--enable-prefix-caching",
+    "--block-size",
+    "16",
+    "--gpu-memory-utilization",
+    "0.90",
+    "--port",
+    "8000"
+  ],
+  "startup_seconds": 225.1,
+  "prefix_sha256": "600ad08fb61264fe9e2baccfa30bb9d0d2f5a49584700ba5050763e334611fa4",
+  "requests": [
+    {
+      "request": 1,
+      "prompt_tokens": 6209,
+      "completion_tokens": 2,
+      "delta": {
+        "vllm:external_prefix_cache_hits_created": 0.0,
+        "vllm:external_prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_created": 0.0,
+        "vllm:external_prefix_cache_queries_total": 0.0,
+        "vllm:prefix_cache_hits_created": 0.0,
+        "vllm:prefix_cache_hits_total": 0.0,
+        "vllm:prefix_cache_queries_created": 0.0,
+        "vllm:prefix_cache_queries_total": 6209.0
+      }
+    },
+    {
+      "request": 2,
+      "prompt_tokens": 6209,
+      "completion_tokens": 2,
+      "delta": {
+        "vllm:external_prefix_cache_hits_created": 0.0,
+        "vllm:external_prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_created": 0.0,
+        "vllm:external_prefix_cache_queries_total": 0.0,
+        "vllm:prefix_cache_hits_created": 0.0,
+        "vllm:prefix_cache_hits_total": 6192.0,
+        "vllm:prefix_cache_queries_created": 0.0,
+        "vllm:prefix_cache_queries_total": 6209.0
+      }
+    },
+    {
+      "request": 3,
+      "prompt_tokens": 6209,
+      "completion_tokens": 2,
+      "delta": {
+        "vllm:external_prefix_cache_hits_created": 0.0,
+        "vllm:external_prefix_cache_hits_total": 0.0,
+        "vllm:external_prefix_cache_queries_created": 0.0,
+        "vllm:external_prefix_cache_queries_total": 0.0,
+        "vllm:prefix_cache_hits_created": 0.0,
+        "vllm:prefix_cache_hits_total": 6192.0,
+        "vllm:prefix_cache_queries_created": 0.0,
+        "vllm:prefix_cache_queries_total": 6209.0
+      }
+    }
+  ],
+  "final_cache_metric_lines": [
+    "# HELP vllm:kv_cache_usage_perc KV-cache usage. 1 means 100 percent usage.",
+    "# TYPE vllm:kv_cache_usage_perc gauge",
+    "vllm:kv_cache_usage_perc{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 0.0",
+    "# HELP vllm:prefix_cache_queries_total Prefix cache queries, in terms of number of queried tokens.",
+    "# TYPE vllm:prefix_cache_queries_total counter",
+    "vllm:prefix_cache_queries_total{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 18627.0",
+    "# HELP vllm:prefix_cache_queries_created Prefix cache queries, in terms of number of queried tokens.",
+    "# TYPE vllm:prefix_cache_queries_created gauge",
+    "vllm:prefix_cache_queries_created{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 1.7926902598219223e+09",
+    "# HELP vllm:prefix_cache_hits_total Prefix cache hits, in terms of number of cached tokens.",
+    "# TYPE vllm:prefix_cache_hits_total counter",
+    "vllm:prefix_cache_hits_total{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 12384.0",
+    "# HELP vllm:prefix_cache_hits_created Prefix cache hits, in terms of number of cached tokens.",
+    "# TYPE vllm:prefix_cache_hits_created gauge",
+    "vllm:prefix_cache_hits_created{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 1.7926902598219476e+09",
+    "# HELP vllm:external_prefix_cache_queries_total External prefix cache queries from KV connector cross-instance cache sharing, in terms of number of queried tokens.",
+    "# TYPE vllm:external_prefix_cache_queries_total counter",
+    "vllm:external_prefix_cache_queries_total{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 0.0",
+    "# HELP vllm:external_prefix_cache_queries_created External prefix cache queries from KV connector cross-instance cache sharing, in terms of number of queried tokens.",
+    "# TYPE vllm:external_prefix_cache_queries_created gauge",
+    "vllm:external_prefix_cache_queries_created{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 1.7926902598219733e+09",
+    "# HELP vllm:external_prefix_cache_hits_total External prefix cache hits from KV connector cross-instance cache sharing, in terms of number of cached tokens.",
+    "# TYPE vllm:external_prefix_cache_hits_total counter",
+    "vllm:external_prefix_cache_hits_total{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 0.0",
+    "# HELP vllm:external_prefix_cache_hits_created External prefix cache hits from KV connector cross-instance cache sharing, in terms of number of cached tokens.",
+    "# TYPE vllm:external_prefix_cache_hits_created gauge",
+    "vllm:external_prefix_cache_hits_created{engine=\"0\",model_name=\"Qwen/Qwen3-4B-Instruct-2507\"} 1.7926902598219995e+09",
+    "# HELP vllm:cache_config_info Information of the LLMEngine CacheConfig",
+    "# TYPE vllm:cache_config_info gauge",
+    "vllm:cache_config_info{_block_size_resolved=\"True\",block_size=\"16\",cache_dtype=\"auto\",effective_attention_block_size=\"16\",enable_mamba_shared_prefix_checkpoint=\"False\",enable_prefix_caching=\"True\",engine=\"0\",gpu_memory_utilization=\"0.9\",is_attention_free=\"False\",kv_cache_dtype_skip_layers=\"[]\",kv_cache_layout=\"None\",kv_cache_max_concurrency=\"5.05859375\",kv_cache_memory_bytes=\"None\",kv_cache_size_tokens=\"82880\",kv_offloading_backend=\"native\",kv_offloading_size=\"None\",kv_sharing_fast_prefill=\"False\",mamba_block_size=\"None\",mamba_cache_dtype=\"auto\",mamba_cache_mode=\"none\",mamba_page_size_padded=\"None\",mamba_ssm_cache_dtype=\"auto\",num_cpu_blocks=\"None\",num_gpu_blocks=\"5180\",num_gpu_blocks_override=\"None\",prefix_cache_retention_interval=\"0\",prefix_caching_hash_algo=\"sha256\",prefix_match_unit=\"None\",replayssm_buffer_len=\"16\",skip_page_size_padded=\"None\",sliding_window=\"None\",swa_bounded_replay=\"True\",use_kda_recoverssm=\"False\",use_replayssm=\"False\",user_specified_block_size=\"True\",user_specified_mamba_block_size=\"False\"} 1.0"
+  ],
+  "metric_help": [
+    "# HELP vllm:prefix_cache_queries_total Prefix cache queries, in terms of number of queried tokens.",
+    "# HELP vllm:prefix_cache_queries_created Prefix cache queries, in terms of number of queried tokens.",
+    "# HELP vllm:prefix_cache_hits_total Prefix cache hits, in terms of number of cached tokens.",
+    "# HELP vllm:prefix_cache_hits_created Prefix cache hits, in terms of number of cached tokens.",
+    "# HELP vllm:external_prefix_cache_queries_total External prefix cache queries from KV connector cross-instance cache sharing, in terms of number of queried tokens.",
+    "# HELP vllm:external_prefix_cache_queries_created External prefix cache queries from KV connector cross-instance cache sharing, in terms of number of queried tokens.",
+    "# HELP vllm:external_prefix_cache_hits_total External prefix cache hits from KV connector cross-instance cache sharing, in terms of number of cached tokens.",
+    "# HELP vllm:external_prefix_cache_hits_created External prefix cache hits from KV connector cross-instance cache sharing, in terms of number of cached tokens."
+  ],
+  "log_kv_lines": [
+    "(APIServer pid=15) INFO 10-22 17:27:42 [api_utils.py:286] non-default args: {'model_tag': 'Qwen/Qwen3-4B-Instruct-2507', 'model': 'Qwen/Qwen3-4B-Instruct-2507', 'revision': 'cdbee75f17c01a7cc42f958dc650907174af0554', 'tokenizer_revision': 'cdbee75f17c01a7cc42f958dc650907174af0554', 'max_model_len': 16384, 'block_size': 16, 'gpu_memory_utilization': 0.9, 'enable_prefix_caching': True}",
+    "(EngineCore pid=32) INFO 10-22 17:28:18 [utils.py:343] Using LBNHC KV cache layout.",
+    "(EngineCore pid=32) INFO 10-22 17:28:44 [gpu_worker.py:692] Available KV cache memory: 11.38 GiB",
+    "(EngineCore pid=32) INFO 10-22 17:28:44 [gpu_worker.py:707] CUDA graph memory profiling is enabled (default since v0.21.0). The current --gpu-memory-utilization=0.9000 is equivalent to --gpu-memory-utilization=0.8810 without CUDA graph memory profiling. To maintain the same effective KV cache size as before, increase --gpu-memory-utilization to 0.9190. To disable, set VLLM_MEMORY_PROFILER_ESTIMATE_CUDAGRAPHS=0.",
+    "(EngineCore pid=32) INFO 10-22 17:28:44 [kv_cache_utils.py:2464] GPU KV cache size: 82,880 tokens, Maximum concurrency for 16,384 tokens per request: 5.06x",
+    "(EngineCore pid=32) INFO 10-22 17:30:56 [gpu_worker.py:955] Free memory on device (21.87/22.06 GiB) on startup. Desired GPU memory utilization is (0.9, 19.86 GiB). Actual usage is 7.9 GiB for consumed memory (weights + non-torch), 0.58 GiB for peak activation, and 0.22 GiB for CUDAGraph memory. Replace gpu_memory_utilization config with `--kv-cache-memory=11825853543` (11.01 GiB) to fit into requested memory, or `--kv-cache-memory=13989727744` (13.03 GiB) to fully utilize gpu memory. Current kv cache memory in use is 11.38 GiB.",
+    "(EngineCore pid=32) INFO 10-22 17:30:58 [core.py:373] init engine (profile, create kv cache, warmup model) took 160.56 s (compilation: 8.41 s)",
+    "(APIServer pid=15) INFO 10-22 17:31:13 [loggers.py:320] Engine 000: Avg prompt throughput: 473.0 tokens/s, Avg generation throughput: 0.5 tokens/s, Running: 0 reqs, Waiting: 0 reqs, GPU KV cache usage: 0.0%, Prefix cache hit rate: 66.5%"
+  ],
+  "log_tail": null,
+  "summary": {
+    "result": "pass",
+    "pass_criteria": "request 1 has 0 prefix-cache hits; requests 2 and 3 have >0 hits (from /metrics deltas between requests).",
+    "hits_delta_per_request": [
+      0.0,
+      6192.0,
+      6192.0
+    ],
+    "queries_delta_per_request": [
+      6209.0,
+      6209.0,
+      6209.0
+    ],
+    "prompt_tokens_per_request": [
+      6209,
+      6209,
+      6209
+    ],
+    "counter_unit": "tokens",
+    "counter_unit_evidence": "HELP text says 'number of queried/cached tokens'; queries delta equals usage.prompt_tokens (6209) exactly; hits (6192 = 387 x 16) are whole blocks expressed in tokens.",
+    "block_size": 16,
+    "block_size_source": "vllm:cache_config_info block_size and effective_attention_block_size (set explicitly via --block-size 16)",
+    "kv_cache_size_tokens": 82880,
+    "num_gpu_blocks": 5180,
+    "kv_cache_memory_gib": 11.38,
+    "kv_capacity_source": "startup log 'GPU KV cache size: 82,880 tokens' and cache_config_info (5180 blocks x 16 = 82,880)",
+    "hits_below_prompt_note": "Hits stop 17 tokens short of the prompt: the user message differs per request, and only full 16-token blocks of the shared prefix are reused.",
+    "performance_claims": "None. Three requests are not a benchmark; latency was not measured.",
+    "earlier_attempt": "App ap-YIz0xwk6vHgW52CvLFVIQW ran on the GPU but its result failed to deserialize locally (torch.__version__ object pickled). Fixed by returning JSON text; this file is from app ap-LZa3th7sxn0WhNUGIVAPTM."
+  },
+  "modal_app_id": "ap-LZa3th7sxn0WhNUGIVAPTM",
+  "cleanup": {
+    "verified_at": "2026-10-22 22:50 IST",
+    "apps": "both cachekit apps 'stopped', 0 tasks",
+    "containers": "none running",
+    "volumes_kept": [
+      "huggingface-cache (model weights)",
+      "vllm-cache (compile artifacts)"
+    ]
+  }
+}
