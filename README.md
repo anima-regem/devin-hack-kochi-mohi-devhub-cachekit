@@ -36,6 +36,9 @@ uv run --no-sync cachekit analyze data/demo/requests_before.jsonl \
   quality evaluation and explicit approval CLI. Missing actual quality evidence
   blocks approval. The explicit synthetic inference collector is in bench/quality.py.
 
+- Next.js web scaffold. Run `npm --prefix web install` and
+  `npm --prefix web run dev`; report integration remains pending.
+
 ## Limitations
 
 Cache rates are SIMULATED. No real fixer PR, passing live golden evidence or

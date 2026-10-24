@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@source "./**/*.{ts,tsx}";
+
+:root {
+  color-scheme: light dark;
+  --background: #f8f9f6;
+  --surface: #ffffff;
+  --ink: #1b2925;
+  --muted: #52625b;
+  --line: #d9e0d9;
+  --accent: #236347;
+  --dynamic: #943b32;
+  --stable: #266446;
+  --code-surface: #edf1ec;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #131a17;
+    --surface: #1b2420;
+    --ink: #e8ede7;
+    --muted: #adbbb0;
+    --line: #36463c;
+    --accent: #9dd5b4;
+    --dynamic: #f1a59c;
+    --stable: #a1d5b0;
+    --code-surface: #202d25;
+  }
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; scrollbar-color: var(--muted) var(--background); }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+::selection { color: var(--surface); background: var(--accent); }
+a { color: var(--accent); text-underline-offset: 0.25em; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+button { cursor: pointer; font: inherit; color: var(--ink); padding: 0.6rem 1rem; }
+.site-header, .site-footer, .workspace { width: min(100% - 3rem, 1080px); margin-inline: auto; }
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 92px;
+  border-bottom: 1px solid var(--line);
+}
+.wordmark { display: inline-flex; align-items: center; gap: 0.7rem; font-size: 1.4rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+nav { display: flex; gap: 1.5rem; font-size: 0.9rem; }
+nav a { color: var(--muted); text-decoration: none; }
+nav a:hover { color: var(--ink); text-decoration: underline; }
+.workspace { padding-block: 4.5rem 5rem; }
+h1, h2 { line-height: 1.15; text-wrap: balance; }
+h1 { font-size: clamp(2.25rem, 5vw, 3.6rem); letter-spacing: -0.035em; margin: 0 0 1.4rem; font-weight: 600; }
+h2 { font-size: 1.45rem; letter-spacing: -0.02em; margin: 0 0 0.9rem; font-weight: 600; }
+p { max-width: 70ch; margin: 0 0 1.2rem; }
+.lede { font-size: 1.15rem; color: var(--muted); max-width: 65ch; }
+.page-intro { margin-bottom: 3.25rem; }
+.empty-state { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; padding-block: 2.5rem; border-block: 1px solid var(--line); }
+.prompt-sample { background: var(--surface); padding: 1.4rem 1.6rem; }
+.sample-label { display: block; color: var(--muted); font-size: 0.8rem; margin-bottom: 1rem; }
+.prompt-line { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.65rem; border-top: 1px solid var(--line); font-family: ui-monospace, monospace; font-size: 0.8rem; }
+.prompt-line span:last-child { color: var(--muted); white-space: nowrap; }
+.prompt-line.dynamic { color: var(--dynamic); }
+.prompt-line.stable { color: var(--stable); }
+.empty-copy p, .prepare p { color: var(--muted); }
+.text-link { font-size: 0.9rem; }
+.prepare { margin-top: 3rem; }
+pre { max-width: 100%; overflow-x: auto; padding: 1rem 1.2rem; background: var(--code-surface); border-radius: 0.25rem; margin-block: 1.25rem; }
+code { font-family: ui-monospace, monospace; font-size: 0.85rem; }
+.supporting-text { font-size: 0.85rem; }
+.site-footer { padding-block: 1.4rem 2rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+.method { max-width: 70ch; }
+.method h1 { margin-top: 2rem; }
+.method h2 { margin-top: 2.75rem; }
+.method ul { padding-left: 1.3rem; }
+.method li { margin-bottom: 0.75rem; }
+.skip-link { position: absolute; top: -100px; left: 1rem; z-index: 10; background: var(--surface); padding: 0.5rem 1rem; }
+.skip-link:focus { top: 1rem; }
+
+@media (max-width: 680px) {
+  .site-header, .site-footer, .workspace { width: min(100% - 2rem, 1080px); }
+  .site-header { align-items: flex-start; flex-direction: column; gap: 0.5rem; padding-block: 1rem; }
+  nav { gap: 1.3rem; flex-wrap: wrap; }
+  .workspace { padding-block: 2.5rem 3rem; }
+  .empty-state { grid-template-columns: 1fr; gap: 2rem; padding-block: 1.75rem; }
+  .prompt-sample { padding: 1rem; }
+}
