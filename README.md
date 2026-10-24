@@ -1,56 +1,29 @@
-# DevDay Exchange Community Hackathon: Kochi
+# cachekit
 
-A repository template for participants at the 10–11 October 2026 hackathon. It contains event rules and documentation scaffolding; build your project from scratch at the event.
+Deterministic prompt-cache analysis and a verified source-refactoring workflow.
 
-**[Event and registration on Luma](https://luma.com/z10nz8gp)** · **[Event rules](RULES.md)** · **[Agent instructions](AGENTS.md)**
+This is a dependency checkpoint in a current publication batch of work completed
+locally. These commits use their real creation times; they do not reconstruct an
+earlier event timeline. The final checkpoint contains the complete usage guide.
+Organizer files are preserved; private project planning and credentials stay local.
 
-## Event details
+## Available at this checkpoint
 
-| Detail | Information |
-| --- | --- |
-| Venue | JAIN University, Kochi |
-| Location | [Open the venue map](https://maps.app.goo.gl/Eme7gR7NDXSNRANu5) |
-| Rooms | 2008 and 2009 |
-| Check-in | 10 October 2026, 6:00 PM IST |
-| Kick-off | 10 October 2026, 6:30 PM IST |
-| Wrap-up | 11 October 2026, by 10:00 AM IST |
-| Participation | Solo or a team of up to 4 participants |
-| Theme | Open — build anything you like |
+- Python contracts, schema/version CLI, health API and fictional BEFORE fixtures.
 
-Keep your approved Luma QR code ready for entry, and bring your laptop and charger. Eligible checked-in participants will receive Codex credits and OpenAI API credits.
+```sh
+uv sync --all-packages --all-extras
+uv run --no-sync cachekit --version
+uv run --no-sync cachekit schema --model RequestRecord
+uv run --no-sync python -m demo_app.traffic --out data/demo
+uv run --no-sync pytest
+```
 
-## Use this template
+## Limitations
 
-1. Select **Use this template → Create a new repository** on GitHub. Create your own project repository and clone it.
-2. Read [RULES.md](RULES.md) and [AGENTS.md](AGENTS.md) before building. Begin project implementation at the event.
-3. Fill in the project overview below as you build. Use any suitable language or framework, keeping the implementation simple.
-4. Record meaningful changes in [CHANGELOG.md](CHANGELOG.md) and your Codex usage in [AI_USAGE.md](AI_USAGE.md). Commit after completed milestones; aim for a meaningful checkpoint about every 30 minutes.
-5. Complete [SUBMISSION.md](SUBMISSION.md) with your code repository, short project description, and working demo. Follow submission instructions announced by the organizers.
+Cache rates are SIMULATED. No real fixer PR, passing live golden evidence or
+measured BEFORE/AFTER speedup is claimed. API/UI integration and actual screenshots
+remain work in progress. Private inputs stay in gitignored data/.
 
-This template has no application code or required technology stack. The documentation and commit cadence are repository workflow guidance; the event participation rules are in [RULES.md](RULES.md).
-
-## Project overview — complete during the event
-
-- **Project name:** TODO
-- **Short description:** TODO — what it does, who it helps, and why it matters.
-- **Team:** TODO — participant names and GitHub handles; maximum 4 members.
-- **Working demo:** TODO — link or local demo instructions.
-- **Technology stack:** TODO
-
-### Run the project
-
-Replace these placeholders with commands that actually work for your project:
-
-1. Prerequisites and versions: TODO
-2. Dependency installation: TODO
-3. Environment setup: TODO — list required variable names and provide a sanitized `.env.example` if needed.
-4. Start the project: TODO
-5. Run checks or tests: TODO
-
-### Current status
-
-- Working features: TODO
-- Known limitations: TODO
-- Libraries, APIs, and public datasets used: TODO — include source links and applicable attribution.
-
-See [AI_USAGE.md](AI_USAGE.md) for AI assistance and [CHANGELOG.md](CHANGELOG.md) for the development record.
+See AI_USAGE.md, CHANGELOG.md and SUBMISSION.md for the current assistance,
+publication record and incomplete submission items.

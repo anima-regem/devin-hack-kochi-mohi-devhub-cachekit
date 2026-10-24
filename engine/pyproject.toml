@@ -1,0 +1,32 @@
+[project]
+name = "cachekit"
+version = "0.1.0"
+description = "Deterministic prompt-cache analysis"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.11,<3",
+    "typer>=0.16,<1",
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.34,<1",
+    "PyYAML>=6,<7",
+    "httpx>=0.28,<0.29",
+    "jsonschema>=4.23,<5",
+    "python-dotenv>=1,<2",
+]
+
+[project.optional-dependencies]
+tokenizers = ["transformers>=4.51,<5", "tokenizers>=0.21,<0.23"]
+datasets = ["pyarrow>=20,<21"]
+
+[project.scripts]
+cachekit = "cachekit.cli:main"
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["cachekit*"]
+
+[tool.setuptools.package-data]
+cachekit = ["py.typed", "config/*.yaml"]

@@ -4,11 +4,20 @@ Use Codex during the hackathon and briefly document its actual contribution here
 
 ## Event build log
 
-No participant AI usage has been recorded yet. Replace the placeholder row as you build. Mark human review as pending until someone has reviewed the contribution.
+These are retrospective records of actual assistance, written at the displayed
+time. Human code review remains pending; permission to build is not a completed
+review. Exact model identifiers were not recorded.
 
-| Date and time with timezone | Tool / model, if known | Task | Assistance and affected files | Human review / corrections | Validation and result |
+| Date and time with timezone | Tool / model | Task | Assistance and affected files | Human review / corrections | Validation and result |
 | --- | --- | --- | --- | --- | --- |
-| TODO | Codex | TODO | TODO | Pending | TODO |
+| 2026-10-24T22:11:11+05:30 | Codex | feat: scaffold Python contracts and reproducible helpdesk fixtures | Retrospective source publication and documentation; no new model inference | Human code review pending | Allowlist/credential/template checks; complete-workspace validation recorded in the build log |
+| 2026-10-24T21:54:46+05:30 | Codex | Project implementation | Python contracts, synthetic helpdesk traffic, offline analysis/simulation, CLI, fix/quality/approval workflow, tests and web scaffold | Mohith directed scope and privacy; code review pending | Full local Python suite and Ruff passed; CLI wheel built. Actual fix, quality inference and full UI remain pending. |
+| 2026-10-24T21:54:46+05:30 | Codex | Template and publication preparation | Preserved organizer records/history, separated private planning, prepared run scripts and explicit publication allowlist | Mohith confirmed preserving organizer files; review pending | Run-script shell syntax checked; publication and screenshots pending. No real Devin session started. |
+
+Earlier Modal/dataset preparation was reported by Mohith as performed through
+Claude Code. This session uses the saved smoke evidence and does not claim to
+have repeated that GPU run. No raw request logs or private prompts are included
+in this assistance record.
 
 ## Template preparation
 

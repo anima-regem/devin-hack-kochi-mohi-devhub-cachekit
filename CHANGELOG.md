@@ -4,16 +4,37 @@ Record each meaningful project change during the event, newest first. Update thi
 
 ## Event build log
 
-No project implementation has been recorded yet. Replace this sentence with entries as you build:
+### 2026-10-24T22:11:11+05:30 — feat: scaffold Python contracts and reproducible helpdesk fixtures
 
-```text
-## <actual timestamp> — <short change title>
+- Changed: Publish this logical source checkpoint on top of the organizer template.
+- Why: Record previously local work with honest current commit timestamps.
+- Validation: Public-file allowlist, credential patterns and preserved organizer bytes
+  checked before staging; code checks for the complete local workspace are recorded above.
+- Limitations: This is a publication checkpoint, not a backdated development record;
+  actual fixer/quality/benchmark completion and final screenshots remain pending.
 
-- Changed: <feature or files changed>
-- Why: <reason for the change>
-- Validation: <commands or manual checks actually run, with results>
-- Limitations: <known issues or "None identified in these checks">
-```
+
+Entries below are retrospective records written at the displayed time. Earlier
+implementation was not committed from the coding sandbox because Git metadata
+writes were denied. Commit timestamps will reflect actual publication time;
+the event timeline is not backdated or reconstructed.
+
+### 2026-10-24T21:54:46+05:30 — Prepare template-preserving publication
+
+- Changed: Restored organizer files from the repository's existing initial commit;
+  retained private CacheKit notes under ignored local storage; added run scripts,
+  submission details and an honest screenshot status.
+- Why: Build on the participant template's history and provide reproducible entry
+  points while keeping credentials, raw data and private planning out of Git.
+- Validation: Organizer file paths and original contents inspected from
+  `origin/main`; shell syntax checked for all run scripts. The implemented engine
+  and fix workflow passed the full local Python suite (98 tests) and Ruff.
+  Isolated publication-prefix checks passed: foundation tests; analysis tests
+  with exact-tokenizer integration skipped because private tokenizer data is not
+  included in a public checkpoint. Public allowlist and credential checks passed;
+  organizer instructions/rules/checklist match the existing template bytes.
+- Limitations: Publication is pending. The API and UI are foundations, no actual
+  fixer PR or golden inference exists, and UI screenshots remain pending.
 
 ## Template setup — 10 October 2026
 
